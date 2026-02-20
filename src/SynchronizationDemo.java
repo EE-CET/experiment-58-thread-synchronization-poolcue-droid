@@ -1,21 +1,23 @@
 class Table {
     synchronized void printTable(int n) {
         for (int i = 1; i <= 5; i++) {
-            System.out.print(n * i);
-            if (i < 5) System.out.print(" "); 
+            System.out.print((n * i) + " ");
             try {
-                Thread.sleep(400);
+                Thread.sleep(400); 
             } catch (InterruptedException e) {
                 System.out.println(e);
             }
         }
-        System.out.println();
+        System.out.println(); 
     }
 }
 
 class MyThread1 extends Thread {
     Table t;
-    MyThread1(Table t) { this.t = t; }
+    MyThread1(Table t) {
+        this.t = t;
+    }
+
     public void run() {
         t.printTable(5);
     }
@@ -23,7 +25,10 @@ class MyThread1 extends Thread {
 
 class MyThread2 extends Thread {
     Table t;
-    MyThread2(Table t) { this.t = t; }
+    MyThread2(Table t) {
+        this.t = t;
+    }
+
     public void run() {
         t.printTable(100);
     }
@@ -32,7 +37,11 @@ class MyThread2 extends Thread {
 public class SynchronizationDemo {
     public static void main(String[] args) {
         Table obj = new Table();
-        new MyThread1(obj).start();
-        new MyThread2(obj).start();
+
+        MyThread1 t1 = new MyThread1(obj);
+        MyThread2 t2 = new MyThread2(obj);
+
+        t1.start();
+        t2.start();
     }
 }
